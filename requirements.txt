@@ -1,0 +1,9 @@
+telethon
+python-docx
+Unidecode
+pymorphy3
+pymorphy3-dicts-ru
+pymorphy3-dicts-uk
+argostranslate
+lingua-language-detector
+morfeusz2

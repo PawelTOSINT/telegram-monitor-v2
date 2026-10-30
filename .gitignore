@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Private Telegram data
+*.session
+*.session-journal
+session/
+config/accounts.json
+config/telegram_credentials.json
+config/settings.json
+
+# Private monitoring configuration
+config/keywords.txt
+config/channels.txt
+config/channels/
+
+# Databases and runtime data
+database/
+results/
+cache/
+media/
+videos/
+
+# Temporary files
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+!.env.example
