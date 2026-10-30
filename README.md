@@ -1,5 +1,51 @@
 # Telegram Monitor V2
 
+Advanced Multilingual Telegram OSINT Monitoring Platform
+
+A Python-based OSINT tool for monitoring Telegram channels, identifying relevant messages and analyzing keywords in Polish, Ukrainian, Russian and English.
+
+## Key Features
+- Multilingual keyword detection (PL / UK / RU / EN)
+- Automatic translations with Argos Translate
+- Morphological analysis and keyword expansion
+- Regex matching and transliteration
+- Multiple Telegram account support
+- Configurable channel monitoring
+- Automated keyword generation
+
+## Installation
+bash
+git clone https://github.com/PawelTOSINT/telegram-monitor-v2.git
+cd telegram-monitor-v2
+./install.sh
+
+
+## Configuration
+Configure Telegram credentials, accounts, channels and keywords using the example files in config/. Never publish private credentials or session files.
+
+## Running
+bash
+./run.sh
+
+
+## Documentation
+- English User Guide
+- Polish User Guide
+- Daily Usage Guide
+
+## Technology
+Python 3, Telethon, Argos Translate, Pymorphy3, Morfeusz2 and Lingua.
+
+## Disclaimer
+For lawful OSINT research and authorized monitoring. Users are responsible for complying with applicable laws and Telegram Terms of Service.
+
+## Repository
+https://github.com/PawelTOSINT/telegram-monitor-v2
+
+---
+
+# Telegram Monitor V2
+
 Telegram monitoring application with multilingual keyword detection.
 
 ## Features
