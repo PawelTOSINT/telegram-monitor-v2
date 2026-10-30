@@ -38,3 +38,12 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Local configuration and Telegram secrets
+config/settings.json
+config/keywords.txt
+config/channels.txt
+config/accounts.json
+config/telegram_credentials.json
+config/time_range.json
+config/channels/

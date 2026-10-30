@@ -1,0 +1,4 @@
+# Jeden keyword w każdej linii
+# Przykład:
+# dron
+# rakieta

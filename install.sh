@@ -33,16 +33,31 @@ echo "[3/4] Instalacja zależności..."
 
 echo "[4/4] Przygotowanie konfiguracji..."
 
-mkdir -p config cache database results session media videos
+mkdir -p config/channels cache database results session media videos
 
-touch config/keywords.txt
-touch config/channels.txt
+for name in settings keywords channels accounts telegram_credentials time_range; do
+    case "$name" in
+        settings) target="settings.json" ;;
+        keywords) target="keywords.txt" ;;
+        channels) target="channels.txt" ;;
+        accounts) target="accounts.json" ;;
+        telegram_credentials) target="telegram_credentials.json" ;;
+        time_range) target="time_range.json" ;;
+    esac
+
+    if [ ! -f "config/$target" ]; then
+        cp "config/$name.example.$(
+            case "$name" in
+                keywords|channels) echo txt ;;
+                *) echo json ;;
+            esac
+        )" "config/$target"
+        echo "[UTWORZONO] config/$target"
+    fi
+done
 
 echo
 echo "Instalacja zakończona."
+echo "Uruchom: ./run.sh"
 echo
-echo "Uruchom program:"
-echo "  ./run.sh"
-echo
-echo "Modele Argos można zainstalować dodatkowo:"
-echo "  .venv/bin/python install_argos_models.py"
+echo "Uzupełnij konfigurację w katalogu config."

@@ -1,0 +1,3 @@
+# Jeden kanał Telegram w każdej linii
+# Przykład:
+# https://t.me/example_channel
