@@ -32,3 +32,14 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Prywatne bazy danych i dane lokalne
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+*.backup
+
+# Pliki sesji i dane uwierzytelniające
+*.session
+*.session-journal
