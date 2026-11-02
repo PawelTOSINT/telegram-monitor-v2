@@ -1,39 +1,27 @@
-# Telegram Monitor V2
+# Telegram Monitor
 
 **Wielojęzyczna platforma OSINT do monitorowania Telegrama**
 
-Telegram Monitor V2 to narzędzie napisane w Pythonie, przeznaczone do monitorowania kanałów Telegram i wykrywania wiadomości zawierających istotne słowa kluczowe w wielu językach.
+Telegram Monitor to aplikacja napisana w Pythonie, przeznaczona do legalnego monitorowania kanałów Telegram, przeszukiwania historii wiadomości i wykrywania treści odpowiadających skonfigurowanym słowom kluczowym.
+
+Aplikacja obsługuje przetwarzanie słów kluczowych w języku polskim, ukraińskim, rosyjskim i angielskim.
 
 ## Główne funkcje
 
-- Wielojęzyczne monitorowanie słów kluczowych (polski, ukraiński, rosyjski i angielski)
-- Dopasowywanie słów kluczowych i analiza tekstu
-- Transliteracja i warianty słów kluczowych
-- Konfigurowalne monitorowanie kanałów Telegram
-- Konfiguracja kont Telegram
-- Lokalny zapis danych
-- Obsługa bazy danych SQLite
-
-## Szybki start
-
-Pobierz repozytorium i uruchom instalator:
-
-```bash
-git clone https://github.com/PawelTOSINT/telegram-monitor-v2.git
-cd telegram-monitor-v2
-chmod +x install.sh run.sh
-./install.sh
-```
-
-Skonfiguruj dane Telegram, kanały i słowa kluczowe w katalogu `config/`.
-
-Uruchom aplikację:
-
-```bash
-./run.sh
-```
-
-Szczegółowe informacje znajdują się w sekcji [Instalacja](#instalacja).
+- Obsługa wielu kont Telegram
+- Osobne kanały dla poszczególnych kont
+- Przeszukiwanie historii wiadomości
+- Ciągły monitoring nowych wiadomości
+- Wielojęzyczne wykrywanie słów kluczowych
+- Tłumaczenie i rozszerzanie keywordów
+- Warianty morfologiczne i transliteracja
+- Dopasowywanie za pomocą wyrażeń regularnych
+- Opcjonalne lokalne tłumaczenie Argos Translate
+- Lokalna baza SQLite
+- Generowanie raportów DOCX
+- Obsługa i pobieranie multimediów
+- Testowanie keywordów i przebudowa cache
+- Polski i angielski interfejs
 
 ## Wymagania
 
@@ -42,126 +30,228 @@ Szczegółowe informacje znajdują się w sekcji [Instalacja](#instalacja).
 - Git
 - Obsługa środowisk wirtualnych Python
 - Połączenie z Internetem
-- Konto Telegram
+- Konto Telegram i dane Telegram API
 
 ## Instalacja
 
-### Pakiety systemowe
+Sklonuj repozytorium:
 
-W Kali Linux lub Debianie:
+```bash
+git clone https://github.com/PawelTOSINT/telegram-monitor-v2.git
+cd telegram-monitor-v2
+```
+
+Zainstaluj wymagane pakiety systemowe:
 
 ```bash
 sudo apt update
 sudo apt install python3 python3-venv git
 ```
 
-### Automatyczna instalacja
-
-Po pobraniu repozytorium uruchom:
+Uruchom instalator:
 
 ```bash
+chmod +x install.sh run.sh
 ./install.sh
 ```
 
-Instalator przygotowuje środowisko Python i instaluje zależności projektu. Może również tworzyć wymagane katalogi i pliki konfiguracyjne na podstawie dostępnych szablonów.
+Instalator tworzy środowisko wirtualne Python, instaluje zależności i przygotowuje katalogi aplikacji.
 
-Istniejące pliki konfiguracyjne powinny zostać zachowane.
-
-### Ręczna instalacja zależności
-
-Jeżeli środowisko wirtualne już istnieje:
-
-```bash
-.venv/bin/python -m pip install -r requirements.txt
-```
+Istniejące pliki konfiguracyjne nie są nadpisywane przez instalator.
 
 ## Konfiguracja
 
 Pliki konfiguracyjne znajdują się w katalogu `config/`.
 
-Przed uruchomieniem zapoznaj się z szablonami konfiguracji dostępnymi w repozytorium.
+### Dane Telegram API
 
-Typowe obszary konfiguracji:
+Dane API ID oraz API HASH uzyskasz na stronie:
 
-- Dane dostępowe Telegram API
-- Konta Telegram
-- Kanały do monitorowania
-- Słowa kluczowe i frazy
-- Ustawienia monitorowania
+https://my.telegram.org
 
-### Dane dostępowe Telegram API
+Wprowadź je do pliku:
 
-1. Wejdź na https://my.telegram.org.
-2. Zaloguj się na swoje konto Telegram.
-3. Otwórz API development tools.
-4. Pobierz API ID oraz API HASH.
-5. Wprowadź dane w odpowiednim pliku konfiguracyjnym.
+`config/telegram_credentials.json`
 
-Nigdy nie publikuj API HASH, danych dostępowych ani plików sesji.
+### Konta Telegram
 
-### Słowa kluczowe i kanały
+Konta konfiguruje się w pliku:
 
-Korzystaj z szablonów konfiguracji dostępnych w repozytorium. Zachowaj ich istniejący format podczas dodawania słów kluczowych i identyfikatorów kanałów.
+`config/accounts.json`.
 
-Monitoruj wyłącznie kanały, do których masz uprawniony dostęp.
+Przykładowa struktura:
+
+```json
+{
+  "accounts": [
+    {
+      "name": "konto_1",
+      "api_id": 123456,
+      "api_hash": "TWOJ_API_HASH",
+      "search_enabled": true,
+      "monitor_enabled": true
+    }
+  ]
+}
+```
+
+Kanały przypisane do konkretnego konta znajdują się w pliku:
+
+`config/channels/konto_1.txt`
+
+Zastąp `konto_1` odpowiednią nazwą konta.
+
+Aplikacja obsługuje również ustawienie `enabled`, które pozwala aktywować lub wyłączyć konto.
+
+### Słowa kluczowe
+
+Plik:
+
+`config/keywords.txt`
+
+Dodawaj jedno słowo lub frazę w każdym wierszu.
+
+### Ustawienia
+
+Język interfejsu konfiguruje się w:
+
+`config/settings.json`.
+
+Przykładowa konfiguracja wykorzystuje język polski (`pl`).
+
+### Zakres dat wyszukiwania
+
+Opcjonalny zakres dat można skonfigurować w:
+
+`config/time_range.json`.
+
+Przykład:
+
+```json
+{
+  "from": "2026-01-01",
+  "to": "2026-12-31"
+}
+```
 
 ## Uruchamianie aplikacji
 
-Uruchom Telegram Monitor V2:
+Wszystkie polecenia należy wykonywać przez `run.sh`.
+
+Pomoc:
 
 ```bash
-./run.sh
+./run.sh --help
 ```
 
-Korzystaj z aplikacji zgodnie z dokumentacją projektu.
+Przeszukiwanie historii wiadomości:
+
+```bash
+./run.sh --search
+```
+
+Wyszukiwanie z ostatnich trzech dni:
+
+```bash
+./run.sh --search --days 3
+```
+
+Ciągły monitoring:
+
+```bash
+./run.sh --monitor
+```
+
+Statystyki bazy danych:
+
+```bash
+./run.sh --stats
+```
+
+Test słowa kluczowego:
+
+```bash
+./run.sh --test-keyword "brat"
+```
+
+Ponowne generowanie cache:
+
+```bash
+./run.sh --rebuild-cache
+```
+
+Aby zatrzymać ciągły monitoring, naciśnij `Ctrl+C`.
+
+## Baza danych i raporty
+
+Aplikacja wykorzystuje lokalną bazę SQLite.
+
+Baza zawiera między innymi:
+
+- `messages` – rekordy wiadomości i dopasowania słów kluczowych;
+- `media_documents` – informacje wykorzystywane do zapobiegania duplikatom w globalnym raporcie multimedialnym.
+
+Aplikacja generuje również dokumenty DOCX i obsługuje przetwarzanie obsługiwanych typów multimediów.
 
 ## Opcjonalne modele tłumaczeniowe
 
-Jeżeli obsługuje je zainstalowana wersja projektu:
+Instalacja modeli Argos Translate:
 
 ```bash
 .venv/bin/python install_argos_models.py
 ```
 
+Dostępność tłumaczenia zależy od zainstalowanych modeli i obsługiwanych par językowych.
+
 ## Rozwiązywanie problemów
 
-### Brak obsługi środowisk wirtualnych Python
-
-```bash
-sudo apt install python3-venv
-```
-
-### Ponowna instalacja zależności
-
-```bash
-.venv/bin/python -m pip install -r requirements.txt
-```
-
-### Sprawdzenie składni Pythona
+Sprawdzenie składni Pythona:
 
 ```bash
 .venv/bin/python -m compileall -q .
 ```
 
+Ponowna instalacja zależności:
+
+```bash
+.venv/bin/python -m pip install -r requirements.txt
+```
+
+Instalacja obsługi środowisk wirtualnych:
+
+```bash
+sudo apt install python3-venv
+```
+
 ## Bezpieczeństwo
 
-Nigdy nie publikuj ani nie udostępniaj:
+Nigdy nie publikuj:
 
-- Danych dostępowych Telegram API
-- API HASH
+- Telegram API HASH
+- Prywatnych konfiguracji kont
 - Plików sesji Telegram
 - Kodów uwierzytelniających
-- Prywatnej konfiguracji kont
+- Prywatnych konfiguracji monitorowania
+- Baz danych ani zebranych danych zawierających informacje poufne
 
-Przed udostępnieniem logów usuń z nich informacje poufne.
+Przed publikacją zmian sprawdź `.gitignore`.
 
-## Zastrzeżenie
-
-Telegram Monitor V2 jest przeznaczony do legalnych badań OSINT i monitorowania, do którego użytkownik posiada odpowiednie uprawnienia.
-
-Użytkownik odpowiada za przestrzeganie obowiązujących przepisów prawa, regulacji dotyczących prywatności oraz regulaminu Telegrama.
+Monitoruj wyłącznie kanały i informacje, do których masz odpowiednie uprawnienia.
 
 ## Dokumentacja
 
 - [English README](README.md)
-- [Repozytorium](https://github.com/PawelTOSINT/telegram-monitor-v2)
+- [Instrukcja użytkownika PL](docs/USER_GUIDE_PL.md)
+- [English User Guide](docs/USER_GUIDE_EN.md)
+- [Instrukcja codziennego używania PL](INSTRUKCJA_CODZIENNEGO_UZYWANIA.md)
+- [Daily Usage Guide EN](DAILY_USAGE_GUIDE.en.md)
+
+## Zastrzeżenie
+
+Oprogramowanie jest przeznaczone do legalnych badań i monitorowania, do którego użytkownik posiada odpowiednie uprawnienia.
+
+Użytkownik odpowiada za przestrzeganie obowiązujących przepisów prawa, regulacji dotyczących prywatności oraz regulaminu Telegrama.
+
+## Repozytorium
+
+https://github.com/PawelTOSINT/telegram-monitor-v2
