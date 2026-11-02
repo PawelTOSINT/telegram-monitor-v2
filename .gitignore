@@ -1,49 +1,45 @@
-# Python
 __pycache__/
 *.py[cod]
 *.pyo
 
-# Virtual environment
 .venv/
 venv/
 env/
 
-# Private Telegram data
 *.session
 *.session-journal
 session/
+
 config/accounts.json
 config/telegram_credentials.json
 config/settings.json
-
-# Private monitoring configuration
 config/keywords.txt
 config/channels.txt
+config/time_range.json
 config/channels/
 
-# Databases and runtime data
 database/
 results/
 cache/
 media/
 videos/
 
-# Temporary files
 *.tmp
 *.log
 .DS_Store
 Thumbs.db
 
-# Secrets
 .env
 .env.*
 !.env.example
 
-# Local configuration and Telegram secrets
-config/settings.json
-config/keywords.txt
-config/channels.txt
-config/accounts.json
-config/telegram_credentials.json
-config/time_range.json
-config/channels/
+# Prywatne bazy danych i dane lokalne
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+*.backup
+
+# Pliki sesji i dane uwierzytelniające
+*.session
+*.session-journal
