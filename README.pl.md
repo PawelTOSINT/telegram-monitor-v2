@@ -1,4 +1,4 @@
-stara wersja - nieaktualna
+stara wersja - nieaktualna - sprawdź README_PL.md
 
 # Telegram Monitor V2
 
