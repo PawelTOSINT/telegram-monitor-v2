@@ -16,7 +16,7 @@ The application supports Polish, Ukrainian, Russian and English keyword processi
 - Keyword translation and expansion
 - Morphological variants and transliteration
 - Regex-based keyword matching
-- OPTIONAL local translation using Argos Translate (install it yourself)
+- OPTIONAL local translation using Argos Translate (install it yourself: .venv/bin/python install_argos_models.py)
 - SQLite database
 - DOCX reports
 - Media processing and downloads
