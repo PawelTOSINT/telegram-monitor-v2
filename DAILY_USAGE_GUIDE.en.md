@@ -1,8 +1,7 @@
-# Telegram Monitor V3 — Daily Usage Guide
+# Telegram Monitor V2 — Daily Usage Guide
 
 This guide explains how to install, configure, run, and maintain Telegram Monitor.
 
-Repository: https://github.com/PawelTOSINT/telegram-monitor
 
 ## 1. Requirements and installation
 
