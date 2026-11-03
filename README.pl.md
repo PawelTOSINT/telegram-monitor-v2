@@ -1,3 +1,5 @@
+stara wersja - nieaktualna
+
 # Telegram Monitor V2
 
 **Wielojęzyczna platforma OSINT do monitorowania Telegrama**
