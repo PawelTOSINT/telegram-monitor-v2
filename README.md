@@ -16,7 +16,7 @@ The application supports Polish, Ukrainian, Russian and English keyword processi
 - Keyword translation and expansion
 - Morphological variants and transliteration
 - Regex-based keyword matching
-- Optional local translation using Argos Translate
+- OPTIONAL local translation using Argos Translate (install it yourself)
 - SQLite database
 - DOCX reports
 - Media processing and downloads
